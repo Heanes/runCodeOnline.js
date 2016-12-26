@@ -5,3 +5,55 @@
  * @time 2016-12-22 20:26:29 周四
  */
 /****************************** 重设全局样式 ***************************/
+.run-code-online *{box-sizing:border-box}
+/* 滚动条样式 */
+::-webkit-scrollbar-track{
+    box-shadow:inset 0 0 6px rgba(0,0,0,.3);
+    -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);
+    -webkit-border-radius:10px;
+    border-radius:10px
+}
+::-webkit-scrollbar{
+    width:6px;
+    height:5px
+}
+::-webkit-scrollbar-thumb{
+    -webkit-border-radius:10px;
+    border-radius:10px;
+    background:rgba(0,0,0,.39);
+}
+/* 链接样式 */
+.run-code-online a{color:#3377aa;text-decoration:none}
+.run-code-online a:hover{color:#326eb4}
+.run-code-online a:active{color:#8f001e}
+.run-code-online h1,
+.run-code-online h2,
+.run-code-online h3,
+.run-code-online h4,
+.run-code-online h5,
+.run-code-online h6{margin:0;padding:0;}
+.run-code-online textarea{padding:0;margin:0;border:0;}
+/****************************** 在线运行demo展示样式 ******************************/
+/* 代码实时高亮工具codeMirror 样式重写 */
+.run-code-online .code-online-group-content .code-wrap .code-content-wrap .CodeMirror{height:inherit;}
+.run-code-online{padding:4px}
+.run-code-online .code-online-group-handle{font-size:initial;text-align:right;margin-bottom:4px;}
+.run-code-online .code-online-group-handle .handle-btn{display:inline-block;-webkit-appearance:none;padding:6px 12px;margin-bottom:0;font-size:14px;font-weight:400;line-height:1.42857143;text-align:center;white-space:nowrap;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;border:1px solid transparent;border-radius:4px;color:#fff;background-color:#5cb85c;border-color:#4cae4c;outline:none}
+
+.run-code-online .code-online-group-content{margin:10px 0;font-size:0;}
+.run-code-online .code-online-group-content .code-wrap{border:1px solid #bbb;padding-bottom:26px;}
+.run-code-online .code-online-group-content .code-wrap:nth-child(2n){border-left:0}
+.run-code-online .code-online-group-content .code-wrap:nth-child(2n+3){border-top:0;}
+.run-code-online .code-online-group-content .code-wrap:nth-child(2n+4){border-top:0;}
+
+.run-code-online .code-online-group-content .code-wrap .code-title-wrap{position:relative;height:26px;line-height:26px;border-bottom:1px solid #ddd;}
+.run-code-online .code-online-group-content .code-wrap .code-title-wrap .title-content{padding-left:4px;}
+.run-code-online .code-online-group-content .code-wrap .code-title-wrap .title{font-weight:400;font-size:14px;color:#666;}
+.run-code-online .code-online-group-content .code-wrap .code-title-wrap .code-handle{position:absolute;right:2px;top:0;}
+.run-code-online .code-online-group-content .code-wrap .code-title-wrap .code-handle{font-size:13px;}
+.run-code-online .code-online-group-content .code-wrap .code-title-wrap .code-handle .handle-btn{}
+.run-code-online .code-online-group-content .code-wrap .code-content-wrap{height:100%;}
+.run-code-online .code-online-group-content .code-wrap.half-line{display:inline-block;vertical-align:top;font-size:initial;width:50%;min-height:100px;height:200px}
+.run-code-online .code-online-group-content .code-wrap .code-content-wrap.result{padding:10px;}
+.run-code-online .code-online-group-content .code-wrap .code-content-wrap .code-source-wrap{display:none;}
+.run-code-online .code-online-group-content .half-line textarea{width:100%;resize:none;height:100%;}

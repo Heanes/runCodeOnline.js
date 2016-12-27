@@ -8,8 +8,64 @@ Import([
     // 剪贴板复制
     '../js/resource/clipboard.js/1.5.15/clipboard.js',
     // 代码高亮及实时编辑
-    '../js/resource/codeMirror/5.21.0/theme/eclipse.css',
     '../js/resource/codeMirror/5.21.0/lib/codemirror.js',
+    // 代码高亮之主题
+    '../js/resource/codeMirror/5.21.0/theme/3024-day.css',
+    '../js/resource/codeMirror/5.21.0/theme/3024-night.css',
+    '../js/resource/codeMirror/5.21.0/theme/abcdef.css',
+    '../js/resource/codeMirror/5.21.0/theme/ambiance-mobile.css',
+    '../js/resource/codeMirror/5.21.0/theme/ambiance.css',
+    '../js/resource/codeMirror/5.21.0/theme/base16-dark.css',
+    '../js/resource/codeMirror/5.21.0/theme/base16-light.css',
+    '../js/resource/codeMirror/5.21.0/theme/bespin.css',
+    '../js/resource/codeMirror/5.21.0/theme/blackboard.css',
+    '../js/resource/codeMirror/5.21.0/theme/cobalt.css',
+    '../js/resource/codeMirror/5.21.0/theme/colorforth.css',
+    '../js/resource/codeMirror/5.21.0/theme/dracula.css',
+    '../js/resource/codeMirror/5.21.0/theme/duotone-dark.css',
+    '../js/resource/codeMirror/5.21.0/theme/duotone-light.css',
+    '../js/resource/codeMirror/5.21.0/theme/eclipse.css',
+    '../js/resource/codeMirror/5.21.0/theme/elegant.css',
+    '../js/resource/codeMirror/5.21.0/theme/erlang-dark.css',
+    '../js/resource/codeMirror/5.21.0/theme/hopscotch.css',
+    '../js/resource/codeMirror/5.21.0/theme/icecoder.css',
+    '../js/resource/codeMirror/5.21.0/theme/isotope.css',
+    '../js/resource/codeMirror/5.21.0/theme/lesser-dark.css',
+    '../js/resource/codeMirror/5.21.0/theme/liquibyte.css',
+    '../js/resource/codeMirror/5.21.0/theme/material.css',
+    '../js/resource/codeMirror/5.21.0/theme/mbo.css',
+    '../js/resource/codeMirror/5.21.0/theme/mdn-like.css',
+    '../js/resource/codeMirror/5.21.0/theme/midnight.css',
+    '../js/resource/codeMirror/5.21.0/theme/monokai.css',
+    '../js/resource/codeMirror/5.21.0/theme/neat.css',
+    '../js/resource/codeMirror/5.21.0/theme/neo.css',
+    '../js/resource/codeMirror/5.21.0/theme/night.css',
+    '../js/resource/codeMirror/5.21.0/theme/panda-syntax.css',
+    '../js/resource/codeMirror/5.21.0/theme/paraiso-dark.css',
+    '../js/resource/codeMirror/5.21.0/theme/paraiso-light.css',
+    '../js/resource/codeMirror/5.21.0/theme/pastel-on-dark.css',
+    '../js/resource/codeMirror/5.21.0/theme/railscasts.css',
+    '../js/resource/codeMirror/5.21.0/theme/rubyblue.css',
+    '../js/resource/codeMirror/5.21.0/theme/seti.css',
+    '../js/resource/codeMirror/5.21.0/theme/solarized.css',
+    '../js/resource/codeMirror/5.21.0/theme/the-matrix.css',
+    '../js/resource/codeMirror/5.21.0/theme/tomorrow-night-bright.css',
+    '../js/resource/codeMirror/5.21.0/theme/tomorrow-night-eighties.css',
+    '../js/resource/codeMirror/5.21.0/theme/ttcn.css',
+    '../js/resource/codeMirror/5.21.0/theme/twilight.css',
+    '../js/resource/codeMirror/5.21.0/theme/vibrant-ink.css',
+    '../js/resource/codeMirror/5.21.0/theme/xq-dark.css',
+    '../js/resource/codeMirror/5.21.0/theme/xq-light.css',
+    '../js/resource/codeMirror/5.21.0/theme/yeti.css',
+    '../js/resource/codeMirror/5.21.0/theme/zenburn.css',
+    // --代码高亮之全屏编辑
+    '../js/resource/codeMirror/5.21.0/addon/display/fullscreen.css',
+    '../js/resource/codeMirror/5.21.0/addon/display/fullscreen.js',
+    // --代码高亮之显示鼠标当前所在行
+    '../js/resource/codeMirror/5.21.0/addon/selection/active-line.js',
+    // -- 代码高亮之括号匹配
+    '../js/resource/codeMirror/5.21.0/addon/edit/matchbrackets.js',
+    // --代码高亮之
     '../js/resource/codeMirror/5.21.0//addon/selection/selection-pointer.js',
     // --代码高亮及实时编辑之自动完成
     '../js/resource/codeMirror/5.21.0/addon/hint/show-hint.js',
@@ -37,6 +93,8 @@ function Import() {
     var $jsTarget = $('cite').find('script[id="importResource"]');
     var $cssTarget = $('head').find('link[type="text/css"]').last();
 
+    var jsList = [];
+    var cssList = [];
     var jsAdd = '';
     var cssAdd = '';
     for (var i = 0; i < arguments.length; i++) {
@@ -49,6 +107,7 @@ function Import() {
                     scriptDom.src = item;
                     //$jsTarget.after('<script type="text/javascript" src="' + item + '"></script>');
                     jsAdd += '<script type="text/javascript" src="' + item + '"></script>';
+                    jsList.unshift('<script type="text/javascript" src="' + item + '"></script>');
                     //appendAfter(scriptDom, jsTargetWrap[i+1]);
                 }
                 else if (item.match(/\.css$/i)) {
@@ -58,11 +117,18 @@ function Import() {
                     cssDom.ref = 'stylesheet';
                     //$cssTarget.after('<link rel="stylesheet" type="text/css" href="' + item + '"></link>');
                     cssAdd += '<link rel="stylesheet" type="text/css" href="' + item + '"></link>';
+                    cssList.unshift('<link rel="stylesheet" type="text/css" href="' + item + '"></link>');
                     //appendAfter(cssDom, cssTargetWrap[i+1]);
                 }
             });
         }
     }
+    $.each(jsList, function (i, item) {
+        //$jsTarget.after(item)
+    });
+    $.each(cssList, function (i, item) {
+        //$cssTarget.after(item)
+    });
     jsAdd != '' ? $jsTarget.after(jsAdd) : null;
     cssAdd != '' ? $cssTarget.after(cssAdd) : null;
 }

@@ -21,6 +21,58 @@
         <div class="run-code-online">
             <!-- 代码操作 -->
             <div class="code-online-group-handle">
+                <!-- 切换主题 -->
+                <select class="select-theme" id="selectCodeTheme">
+                    <option value="default">default</option>
+                    <option value="3024-day">3024-day</option>
+                    <option value="3024-night">3024-night</option>
+                    <option value="abcdef">abcdef</option>
+                    <option value="ambiance-mobile">ambiance-mobile</option>
+                    <option value="ambiance">ambiance</option>
+                    <option value="base16-dark">base16-dark</option>
+                    <option value="base16-light">base16-light</option>
+                    <option value="bespin">bespin</option>
+                    <option value="blackboard">blackboard</option>
+                    <option value="cobalt">cobalt</option>
+                    <option value="colorforth">colorforth</option>
+                    <option value="dracula">dracula</option>
+                    <option value="duotone-dark">duotone-dark</option>
+                    <option value="duotone-light">duotone-light</option>
+                    <option value="eclipse" selected>eclipse</option>
+                    <option value="elegant">elegant</option>
+                    <option value="erlang-dark">erlang-dark</option>
+                    <option value="hopscotch">hopscotch</option>
+                    <option value="icecoder">icecoder</option>
+                    <option value="isotope">isotope</option>
+                    <option value="lesser-dark">lesser-dark</option>
+                    <option value="liquibyte">liquibyte</option>
+                    <option value="material">material</option>
+                    <option value="mbo">mbo</option>
+                    <option value="mdn-like">mdn-like</option>
+                    <option value="midnight">midnight</option>
+                    <option value="monokai">monokai</option>
+                    <option value="neat">neat</option>
+                    <option value="neo">neo</option>
+                    <option value="night">night</option>
+                    <option value="panda-syntax">panda-syntax</option>
+                    <option value="paraiso-dark">paraiso-dark</option>
+                    <option value="paraiso-light">paraiso-light</option>
+                    <option value="pastel-on-dark">pastel-on-dark</option>
+                    <option value="railscasts">railscasts</option>
+                    <option value="rubyblue">rubyblue</option>
+                    <option value="seti">seti</option>
+                    <option value="solarized">solarized</option>
+                    <option value="the-matrix">the-matrix</option>
+                    <option value="tomorrow-night-bright">tomorrow-night-bright</option>
+                    <option value="tomorrow-night-eighties">tomorrow-night-eighties</option>
+                    <option value="ttcn">ttcn</option>
+                    <option value="twilight">twilight</option>
+                    <option value="vibrant-ink">vibrant-ink</option>
+                    <option value="xq-dark">xq-dark</option>
+                    <option value="xq-light">xq-light</option>
+                    <option value="yeti">yeti</option>
+                    <option value="zenburn">zenburn</option>
+                </select>
                 <a href="javascript:;" class="run-code handle-btn">
                     <i class="fa fa-flask"></i>
                     <span class="handle-text">运行</span>
@@ -141,6 +193,7 @@ $('#seekForWhat').on('click', function(){
             javascript: ''
         };
         var $codeMirrorTextarea = $codeOnline.find('.code-mirror-textarea');
+        var codeMirrors = [];
         $codeMirrorTextarea.each(function (i, item) {
             var codeSource = $(item).parent().find('.code-source-wrap code').html();
             codeSource = removeFirstBreakLineChar(codeSource);
@@ -164,7 +217,16 @@ $('#seekForWhat').on('click', function(){
                 mode: mode,
                 matchBrackets: true,
                 theme: 'eclipse',
-                indentUnit: 4
+                indentUnit: 4,
+                styleActiveLine: true,
+                extraKeys: {
+                    "F11": function(cm) {
+                        cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                    },
+                    "Esc": function(cm) {
+                        if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                    }
+                }
             });
             setCodes(modeOrigin, codeEditor, codes);
             codeEditor.on('blur', function () {
@@ -173,6 +235,7 @@ $('#seekForWhat').on('click', function(){
             codeEditor.on('keypress', function() {
                 codeEditor.showHint();  //满足自动触发自动联想功能
             });
+            codeMirrors.push(codeEditor);
 
             function setCodes(mode){
                 switch (mode) {
@@ -188,6 +251,26 @@ $('#seekForWhat').on('click', function(){
                 }
             }
         });
+
+        /**
+         * @doc 切换主题
+         * @author Heanes
+         * @time 2016-12-27 10:46:58 周二
+         */
+        var $selectCodeTheme = $('#selectCodeTheme');
+        var selectCodeTheme = $selectCodeTheme.val();
+        $selectCodeTheme.on('change', function () {
+            selectCodeTheme = $(this).find('option:selected').val();
+            $.each(codeMirrors, function (i, item) {
+                item.setOption("theme", selectCodeTheme);
+            });
+        });
+
+        /**
+         * @doc 点击运行
+         * @author Heanes
+         * @time 2016-12-21 10:32:08 周二
+         */
         $runCode.on('click', function () {
             var $css = $('<style type="text/css">' + codes.css + '</style>');
             var $javascript = $('<script type="application/javascript">').append(codes.javascript);
@@ -195,15 +278,17 @@ $('#seekForWhat').on('click', function(){
         });
         $runCode.trigger('click');
 
+        /**
+         * @doc 复制到剪贴板
+         * @author Heanes
+         * @time 2016-12-21 10:32:43 周二
+         */
         var $copyToClipboardBtn = $codeOnline.find('.copy-to-clipboard');
         var clipboard = new Clipboard('.copy-to-clipboard', {
             text: function(trigger){
                 var sourceCodeKey = $(trigger).attr('data-clipboard-source-code');
                 return codes[sourceCodeKey] || '';
             }
-        });
-        $copyToClipboardBtn.each(function (i, item) {
-            var $onlineGroupWrap = $(item).closest('.online-group-wrap');
         });
 
         /**

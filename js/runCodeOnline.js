@@ -107,7 +107,7 @@ function Import() {
                     scriptDom.src = item;
                     //$jsTarget.after('<script type="text/javascript" src="' + item + '"></script>');
                     jsAdd += '<script type="text/javascript" src="' + item + '"></script>';
-                    jsList.unshift('<script type="text/javascript" src="' + item + '"></script>');
+                    //jsList.unshift('<script type="text/javascript" src="' + item + '"></script>');
                     //appendAfter(scriptDom, jsTargetWrap[i+1]);
                 }
                 else if (item.match(/\.css$/i)) {
@@ -117,18 +117,18 @@ function Import() {
                     cssDom.ref = 'stylesheet';
                     //$cssTarget.after('<link rel="stylesheet" type="text/css" href="' + item + '"></link>');
                     cssAdd += '<link rel="stylesheet" type="text/css" href="' + item + '"></link>';
-                    cssList.unshift('<link rel="stylesheet" type="text/css" href="' + item + '"></link>');
+                    //cssList.unshift('<link rel="stylesheet" type="text/css" href="' + item + '"></link>');
                     //appendAfter(cssDom, cssTargetWrap[i+1]);
                 }
             });
         }
     }
-    $.each(jsList, function (i, item) {
-        //$jsTarget.after(item)
+    /*$.each(jsList, function (i, item) {
+        $jsTarget.after(item)
     });
     $.each(cssList, function (i, item) {
-        //$cssTarget.after(item)
-    });
+        $cssTarget.after(item)
+    });*/
     jsAdd != '' ? $jsTarget.after(jsAdd) : null;
     cssAdd != '' ? $cssTarget.after(cssAdd) : null;
 }

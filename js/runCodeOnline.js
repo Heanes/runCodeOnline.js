@@ -149,6 +149,8 @@ function Import() {
 
     };
 
+    // @todo 1.新窗口打开；2.全屏编辑；3.纯文本显示代码；4.是否显示行号；5.是否自动换行
+    // @see https://github.com/aramk/crayon-syntax-highlighter
 
     /**
      * @doc 显示错误
